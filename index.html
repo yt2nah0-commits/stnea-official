@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>St.NEA — AI agents at work.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ░░ HEADER ░░ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <span class="logo__text">St.NEA</span>
+        <span class="logo__dot"></span>
+      </a>
+      <nav class="nav">
+        <a href="#about"    class="nav__link">About</a>
+        <a href="#workflow" class="nav__link">Workflow</a>
+        <a href="#agents"   class="nav__link">Agents</a>
+        <a href="#products" class="nav__link">Products</a>
+        <a href="#contact"  class="nav__link">Contact</a>
+      </nav>
+      <div class="nav__live">
+        <span class="live__dot"></span>
+        <span class="live__text">Live</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero" id="hero">
+    <canvas class="hero__canvas" id="particleCanvas"></canvas>
+
+    <div class="hero__orb hero__orb--1"></div>
+    <div class="hero__orb hero__orb--2"></div>
+    <div class="hero__orb hero__orb--3"></div>
+
+    <div class="container hero__inner">
+      <div class="hero__badge">
+        <span class="badge__pulse"></span>
+        AI agents at work.
+      </div>
+      <h1 class="hero__title">
+        <span class="title__line">AIが働く、</span>
+        <span class="title__line title__line--grad">小さな企業。</span>
+      </h1>
+      <p class="hero__sub">
+        企画・制作・販売・発信をAIエージェントが担い、<br>
+        代表がたった1人で意思決定する新しい会社のかたち。
+      </p>
+      <div class="hero__actions">
+        <a href="#products" class="btn btn--primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L15 8L8 15M1 8H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          最初の商品を見る
+        </a>
+        <a href="#workflow" class="btn btn--ghost">仕組みを知る</a>
+      </div>
+
+      <!-- Floating stat cards -->
+      <div class="hero__floats">
+        <div class="float-card float-card--1 reveal">
+          <div class="float-card__num">11</div>
+          <div class="float-card__label">AI Agents</div>
+        </div>
+        <div class="float-card float-card--2 reveal">
+          <div class="float-card__num">2</div>
+          <div class="float-card__label">Products in dev</div>
+        </div>
+        <div class="float-card float-card--3 reveal">
+          <div class="float-card__num">24/7</div>
+          <div class="float-card__label">Always running</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ░░ STATS ░░ -->
+  <section class="stats">
+    <div class="container stats__inner">
+      <div class="stat-item">
+        <div class="stat-item__num" data-count="11">0</div>
+        <div class="stat-item__label">AIエージェント</div>
+      </div>
+      <div class="stat-item__div"></div>
+      <div class="stat-item">
+        <div class="stat-item__num" data-count="2">0</div>
+        <div class="stat-item__label">開発中商品</div>
+      </div>
+      <div class="stat-item__div"></div>
+      <div class="stat-item">
+        <div class="stat-item__num" data-count="1">0</div>
+        <div class="stat-item__label">人間の代表</div>
+      </div>
+      <div class="stat-item__div"></div>
+      <div class="stat-item">
+        <div class="stat-item__num">∞</div>
+        <div class="stat-item__label">可能性</div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- ░░ ABOUT ░░ -->
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="section-eyebrow reveal">About</div>
+        <h2 class="section-title reveal">St.NEAとは</h2>
+
+        <div class="about__layout">
+          <div class="about__copy reveal">
+            <p>
+              St.NEAは、AIエージェントが実務を担う日本のバーチャルデジタル商品会社です。<br>
+              代表1名の意思決定のもと、11名のAIエージェントがそれぞれの専門領域で自律的に活動しています。
+            </p>
+            <p>
+              企画・制作・販売・マーケティング・法務・財務——すべてをAIが担い、<br>
+              人間は「何を作るか」「何を承認するか」だけを決めます。
+            </p>
+            <div class="about__tags">
+              <span class="tag">デジタル商品</span>
+              <span class="tag">AI活用</span>
+              <span class="tag">コンテキストエンジニアリング</span>
+              <span class="tag">Note</span>
+              <span class="tag">BOOTH</span>
+            </div>
+          </div>
+
+          <!-- Org chart visual -->
+          <div class="org reveal">
+            <div class="org__ceo">
+              <div class="org__node org__node--human">
+                <div class="org__node-glow"></div>
+                <svg class="org__icon-svg" width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#f0b429" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#f0b429" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span class="org__role">代表</span>
+                <span class="org__type">Human CEO</span>
+              </div>
+            </div>
+            <div class="org__connector">
+              <svg width="2" height="48" viewBox="0 0 2 48">
+                <line x1="1" y1="0" x2="1" y2="48" stroke="url(#connGrad)" stroke-width="2"/>
+                <defs>
+                  <linearGradient id="connGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f0b429" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#4a9eff" stop-opacity="0.6"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="org__agents-wrap">
+              <div class="org__agents-label">AI社員 × 11</div>
+              <div class="org__agent-grid">
+                <div class="org__node org__node--ai"><span class="ai-icon">🎯</span><span class="org__role">Coordinator</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">🔍</span><span class="org__role">Research</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">✍️</span><span class="org__role">Creation</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">📊</span><span class="org__role">Analyzer</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">📢</span><span class="org__role">Marketing</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">🌐</span><span class="org__role">Web Dev</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">🎨</span><span class="org__role">Creative</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">💰</span><span class="org__role">Finance</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">⚖️</span><span class="org__role">Legal/IP</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">🧠</span><span class="org__role">Strategy</span></div>
+                <div class="org__node org__node--ai"><span class="ai-icon">📝</span><span class="org__role">Content</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ WORKFLOW ░░ -->
+    <section id="workflow" class="workflow section">
+      <div class="container">
+        <div class="section-eyebrow reveal">Workflow</div>
+        <h2 class="section-title reveal">AIエージェントが動く仕組み</h2>
+        <p class="section-sub reveal">1つのアイデアが商品になるまで、11のエージェントが連携します。</p>
+
+        <div class="workflow__steps">
+          <div class="wf-step reveal">
+            <div class="wf-step__num">01</div>
+            <div class="wf-step__icon">🎯</div>
+            <h3 class="wf-step__title">代表が方向を決める</h3>
+            <p class="wf-step__desc">テーマ・ターゲット・販売先など、ビジネスの意思決定は人間が行います。</p>
+          </div>
+          <div class="wf-arrow reveal">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16H26M18 8L26 16L18 24" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="wf-step reveal">
+            <div class="wf-step__num">02</div>
+            <div class="wf-step__icon">🔍</div>
+            <h3 class="wf-step__title">Researchが調査</h3>
+            <p class="wf-step__desc">市場・競合・トレンドをリサーチし、ニッチと価格帯を特定します。</p>
+          </div>
+          <div class="wf-arrow reveal">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16H26M18 8L26 16L18 24" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="wf-step reveal">
+            <div class="wf-step__num">03</div>
+            <div class="wf-step__icon">✍️</div>
+            <h3 class="wf-step__title">Creationが制作</h3>
+            <p class="wf-step__desc">コンテンツの全文・プロンプト・構成をAIが設計・執筆します。</p>
+          </div>
+          <div class="wf-arrow reveal">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16H26M18 8L26 16L18 24" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="wf-step reveal">
+            <div class="wf-step__num">04</div>
+            <div class="wf-step__icon">⚖️</div>
+            <h3 class="wf-step__title">Legalがチェック</h3>
+            <p class="wf-step__desc">商標・著作権・誇張表現を確認し、条件付きOKまで修正を繰り返します。</p>
+          </div>
+          <div class="wf-arrow reveal">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16H26M18 8L26 16L18 24" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="wf-step reveal">
+            <div class="wf-step__num">05</div>
+            <div class="wf-step__icon">🚀</div>
+            <h3 class="wf-step__title">代表が承認・公開</h3>
+            <p class="wf-step__desc">人間が最終確認し、Note・BOOTHへ公開。エージェントが宣伝を始めます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ AGENTS ░░ -->
+    <section id="agents" class="agents section">
+      <div class="container">
+        <div class="section-eyebrow reveal">Our Team</div>
+        <h2 class="section-title reveal">AIエージェント 11名</h2>
+        <p class="section-sub reveal">各エージェントは専門領域を持ち、プロジェクトごとに自律的に動きます。</p>
+
+        <div class="agents__grid">
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">🎯</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">Coordinator Agent</h3>
+            <p class="agent-card__role">統括・進行管理</p>
+            <p class="agent-card__desc">全タスクを分解し、各エージェントへ振り分け、進捗を管理します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">🔍</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">Research Agent</h3>
+            <p class="agent-card__role">市場調査・競合分析</p>
+            <p class="agent-card__desc">日英のWeb情報を収集し、売れるニッチと価格帯を特定します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">✍️</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">Creation Agent</h3>
+            <p class="agent-card__role">商品企画・コンテンツ制作</p>
+            <p class="agent-card__desc">商品コンセプトの設計から全文執筆まで、制作を一貫して担当します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">📝</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">Content Agent</h3>
+            <p class="agent-card__role">記事・SNS文章</p>
+            <p class="agent-card__desc">Note記事・X投稿・販売ページの文章を品質基準に合わせて制作します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">📊</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">Analyzer Agent</h3>
+            <p class="agent-card__role">分析・改善提案</p>
+            <p class="agent-card__desc">販売反応・コンテンツ効果を分析し、次の施策を提案します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">📢</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">広告宣伝部</h3>
+            <p class="agent-card__role">SNS・マーケティング</p>
+            <p class="agent-card__desc">X投稿・コンテンツカレンダー・広告コピーを設計・実行します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">🌐</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">Web制作部</h3>
+            <p class="agent-card__role">Webサイト・LP開発</p>
+            <p class="agent-card__desc">このWebサイトを含む、全てのWeb制作物を開発・更新します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">🎨</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">クリエイティブ制作部</h3>
+            <p class="agent-card__role">画像・デザイン</p>
+            <p class="agent-card__desc">サムネイル・アイコン・素材のプロンプト設計と素材管理を担います。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">💰</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">経理会計部</h3>
+            <p class="agent-card__role">売上・収支管理</p>
+            <p class="agent-card__desc">売上記録・収益シミュレーション・月次レポートを自動生成します。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">⚖️</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">知財・法務部</h3>
+            <p class="agent-card__role">著作権・商標・規約</p>
+            <p class="agent-card__desc">全商品の商用利用チェックを担当。公開前の法的リスクをゼロに近づけます。</p>
+          </div>
+
+          <div class="agent-card reveal">
+            <div class="agent-card__glow"></div>
+            <div class="agent-card__head">
+              <div class="agent-card__icon">🧠</div>
+              <div class="agent-card__status"><span class="status-dot"></span>Active</div>
+            </div>
+            <h3 class="agent-card__name">社内戦略顧問部</h3>
+            <p class="agent-card__role">事業戦略・意思決定サポート</p>
+            <p class="agent-card__desc">代表の壁打ち相手として、優先順位と事業方針の整理をサポートします。</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ PRODUCTS ░░ -->
+    <section id="products" class="products section">
+      <div class="container">
+        <div class="section-eyebrow reveal">Products</div>
+        <h2 class="section-title reveal">商品一覧</h2>
+        <p class="section-sub reveal">AIエージェントが実際に設計・制作したデジタル商品です。</p>
+
+        <div class="products__grid">
+
+          <div class="product-card reveal product-card--featured">
+            <div class="product-card__glow"></div>
+            <div class="product-card__badge">New</div>
+            <div class="product-card__header">
+              <div class="product-card__thumbnail">
+                <div class="thumb-visual">
+                  <div class="thumb-lines">
+                    <div class="thumb-line thumb-line--title"></div>
+                    <div class="thumb-line"></div>
+                    <div class="thumb-line thumb-line--short"></div>
+                    <div class="thumb-gap"></div>
+                    <div class="thumb-prompt">
+                      <div class="prompt-label">PROMPT</div>
+                      <div class="prompt-lines">
+                        <div class="thumb-line"></div>
+                        <div class="thumb-line thumb-line--short"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <div class="product-card__tags">
+                <span class="p-tag">Claude</span>
+                <span class="p-tag">プロンプト</span>
+                <span class="p-tag">業務効率化</span>
+              </div>
+              <h3 class="product-card__title">Claudeの実力を30%しか引き出せていない人へ</h3>
+              <p class="product-card__desc">ほとんどの人が知らない5つの事実と、それを証明する30のプロンプト。コンテキストの渡し方から自己採点ループまで。</p>
+              <div class="product-card__footer">
+                <div class="product-card__prices">
+                  <div class="price-item">
+                    <span class="price-item__label">Note</span>
+                    <span class="price-item__val">¥980</span>
+                  </div>
+                  <div class="price-item">
+                    <span class="price-item__label">PDF</span>
+                    <span class="price-item__val">¥1,480</span>
+                  </div>
+                </div>
+                <a href="#" class="btn btn--primary">Note で購入</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal product-card--coming">
+            <div class="product-card__badge product-card__badge--soon">Coming Soon</div>
+            <div class="product-card__header">
+              <div class="product-card__thumbnail product-card__thumbnail--notion">
+                <div class="thumb-visual thumb-visual--dark">
+                  <div class="notion-blocks">
+                    <div class="notion-block notion-block--heading"></div>
+                    <div class="notion-block notion-block--text"></div>
+                    <div class="notion-block notion-block--text notion-block--short"></div>
+                    <div class="notion-block notion-block--callout">
+                      <div class="callout-icon">⚡</div>
+                      <div class="callout-text"></div>
+                    </div>
+                    <div class="notion-block notion-block--text"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <div class="product-card__tags">
+                <span class="p-tag">Notion</span>
+                <span class="p-tag">Claude Code</span>
+                <span class="p-tag">テンプレート</span>
+              </div>
+              <h3 class="product-card__title">Notion × Claude Code 実践テンプレート集</h3>
+              <p class="product-card__desc">St.NEA自身が運用しているプロジェクト管理・制作ログ・チェックシートをNotionテンプレート化。日本語特化。</p>
+              <div class="product-card__footer">
+                <div class="product-card__prices">
+                  <div class="price-item">
+                    <span class="price-item__label">予定価格</span>
+                    <span class="price-item__val">¥1,500〜</span>
+                  </div>
+                </div>
+                <span class="btn btn--disabled">準備中</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card reveal product-card--coming">
+            <div class="product-card__badge product-card__badge--soon">Coming Soon</div>
+            <div class="product-card__header">
+              <div class="product-card__thumbnail product-card__thumbnail--stamp">
+                <div class="thumb-visual thumb-visual--stamp">
+                  <div class="stamp-grid">
+                    <div class="stamp-item">😤</div>
+                    <div class="stamp-item">🤖</div>
+                    <div class="stamp-item">💬</div>
+                    <div class="stamp-item">✨</div>
+                  </div>
+                  <div class="stamp-label">生成AI 沼あるある</div>
+                </div>
+              </div>
+            </div>
+            <div class="product-card__body">
+              <div class="product-card__tags">
+                <span class="p-tag">LINE</span>
+                <span class="p-tag">スタンプ</span>
+                <span class="p-tag">AI</span>
+              </div>
+              <h3 class="product-card__title">生成AI沼あるある LINEスタンプ</h3>
+              <p class="product-card__desc">AI好きが思わず笑ってしまう「あるある」をスタンプに。16枚セット。申請準備中。</p>
+              <div class="product-card__footer">
+                <div class="product-card__prices">
+                  <div class="price-item">
+                    <span class="price-item__label">LINE</span>
+                    <span class="price-item__val">¥120</span>
+                  </div>
+                </div>
+                <span class="btn btn--disabled">申請中</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░ CONCEPT BANNER ░░ -->
+    <section class="concept-banner">
+      <div class="container">
+        <div class="concept-banner__inner reveal">
+          <div class="concept-banner__label">Our Philosophy</div>
+          <blockquote class="concept-banner__quote">
+            「人間が決める。AIが動く。<br>これが次の働き方だ。」
+          </blockquote>
+          <p class="concept-banner__sub">St.NEA は、AIエージェントとの協業を、実際のビジネスで実証しています。</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer id="contact" class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo">St.NEA</div>
+        <div class="footer__tagline">AI agents at work.</div>
+        <div class="footer__desc">AIエージェントが実務を担うバーチャルデジタル商品会社</div>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <div class="footer__col-title">Products</div>
+          <a href="#" class="footer__link">Note プロンプト集</a>
+          <a href="#" class="footer__link">BOOTH PDF版</a>
+          <a href="#" class="footer__link">LINEスタンプ（予定）</a>
+        </div>
+        <div class="footer__col">
+          <div class="footer__col-title">Company</div>
+          <a href="#about" class="footer__link">About</a>
+          <a href="#agents" class="footer__link">Agents</a>
+          <a href="#workflow" class="footer__link">Workflow</a>
+        </div>
+        <div class="footer__col">
+          <div class="footer__col-title">Media</div>
+          <a href="#" class="footer__link">Note</a>
+          <a href="#" class="footer__link">X (Twitter)</a>
+          <a href="#" class="footer__link">BOOTH</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <span class="footer__copy">© 2026 St.NEA. All rights reserved.</span>
+        <span class="footer__powered">Powered by AI agents × Claude</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Particle canvas ──
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animId;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 1.5 + 0.3;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.alpha = Math.random() * 0.6 + 0.1;
+        this.pulse = Math.random() * Math.PI * 2;
+        this.pulseSpeed = 0.02 + Math.random() * 0.03;
+        this.color = Math.random() > 0.7
+          ? [240, 180, 41]
+          : Math.random() > 0.5
+            ? [74, 158, 255]
+            : [255, 255, 255];
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.pulse += this.pulseSpeed;
+        const a = this.alpha * (0.7 + 0.3 * Math.sin(this.pulse));
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        return a;
+      }
+      draw() {
+        const a = this.update();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${a})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(74,158,255,${0.06 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawConnections();
+      particles.forEach(p => p.draw());
+      animId = requestAnimationFrame(animate);
+    }
+    animate();
+
+    // ── Header scroll ──
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('header--scrolled', window.scrollY > 40);
+    });
+
+    // ── Scroll reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Counter animation ──
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const target = parseInt(e.target.dataset.count);
+          let current = 0;
+          const step = Math.ceil(target / 30);
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            e.target.textContent = current;
+            if (current >= target) clearInterval(timer);
+          }, 40);
+          counterObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(el => counterObs.observe(el));
+  </script>
+
+</body>
+</html>
