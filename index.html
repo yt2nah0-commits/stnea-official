@@ -512,6 +512,18 @@
       </div>
     </section>
 
+    <!-- ░░ COLUMN MODAL ░░ -->
+    <div class="col-modal" id="colModal" role="dialog" aria-modal="true" aria-labelledby="colModalTitle">
+      <div class="col-modal__backdrop" id="colModalBackdrop"></div>
+      <div class="col-modal__box">
+        <button class="col-modal__close" id="colModalClose" aria-label="閉じる">✕</button>
+        <div class="col-modal__source" id="colModalSource"></div>
+        <h3 class="col-modal__title" id="colModalTitle"></h3>
+        <div class="col-modal__body" id="colModalBody"></div>
+        <a class="col-modal__link" id="colModalLink" target="_blank" rel="noopener">元記事を読む →</a>
+      </div>
+    </div>
+
     <!-- ░░ CONCEPT BANNER ░░ -->
     <section class="concept-banner">
       <div class="container">
@@ -679,7 +691,48 @@
   </script>
 
   <script>
-    // ── AIコラム読み込み ──────────────────────────────────
+    // ── AIコラム読み込み + モーダル ───────────────────────
+    let columnItems = [];
+
+    function parseColumn(item) {
+      const lines = (item.column_text || '').split('\n').filter(l => l.trim());
+      const titleLine = lines.find(l => l.startsWith('【タイトル】'));
+      const leadLine  = lines.find(l => l.startsWith('📌'));
+      const bodyLines = lines.filter(l =>
+        !l.startsWith('【タイトル】') && !l.startsWith('📌') && !l.startsWith('🔗') && l.trim()
+      );
+      return {
+        title:  titleLine ? titleLine.replace('【タイトル】', '').trim() : item.title,
+        lead:   leadLine  ? leadLine.replace('📌', '').trim() : '',
+        body:   bodyLines.join('\n'),
+        source: item.source,
+        url:    item.url,
+      };
+    }
+
+    function openModal(idx) {
+      const d = columnItems[idx];
+      if (!d) return;
+      document.getElementById('colModalSource').textContent = d.source;
+      document.getElementById('colModalTitle').textContent  = d.title;
+      document.getElementById('colModalBody').innerHTML =
+        (d.lead ? `<p class="col-modal__lead">📌 ${d.lead}</p>` : '') +
+        d.body.split('\n').map(l => `<p>${l}</p>`).join('');
+      const link = document.getElementById('colModalLink');
+      link.href = d.url;
+      document.getElementById('colModal').classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('colModal').classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('colModalClose').addEventListener('click', closeModal);
+    document.getElementById('colModalBackdrop').addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
     async function loadColumns() {
       const grid = document.getElementById('columnGrid');
       try {
@@ -692,30 +745,17 @@
           return;
         }
 
-        grid.innerHTML = data.items.map(item => {
-          const lines = (item.column_text || '').split('\n').filter(l => l.trim());
-          const titleLine  = lines.find(l => l.startsWith('【タイトル】'));
-          const leadLine   = lines.find(l => l.startsWith('📌'));
-          const sourceLine = lines.find(l => l.startsWith('🔗'));
-          const bodyLines  = lines.filter(l =>
-            !l.startsWith('【タイトル】') && !l.startsWith('📌') && !l.startsWith('🔗') && l.trim()
-          );
+        columnItems = data.items.map(parseColumn);
 
-          const title  = titleLine ? titleLine.replace('【タイトル】', '').trim() : item.title;
-          const lead   = leadLine  ? leadLine.replace('📌', '').trim() : '';
-          const body   = bodyLines.slice(0, 4).join(' ');
-
-          return `
-            <article class="column__card">
-              <div class="column__card-source">${item.source}</div>
-              <h3 class="column__card-title">${title}</h3>
-              ${lead ? `<p class="column__card-lead">${lead}</p>` : ''}
-              <p class="column__card-body">${body}</p>
-              <a class="column__card-link" href="${item.url}" target="_blank" rel="noopener">
-                元記事を読む →
-              </a>
-            </article>`;
-        }).join('');
+        grid.innerHTML = columnItems.map((d, idx) => `
+          <article class="column__card" role="button" tabindex="0"
+            onclick="openModal(${idx})"
+            onkeydown="if(event.key==='Enter')openModal(${idx})">
+            <div class="column__card-source">${d.source}</div>
+            <h3 class="column__card-title">${d.title}</h3>
+            ${d.lead ? `<p class="column__card-lead">${d.lead}</p>` : ''}
+            <span class="column__card-more">全文を読む →</span>
+          </article>`).join('');
 
       } catch (e) {
         grid.innerHTML = '<p class="column__empty">コラムの読み込みに失敗しました。</p>';
