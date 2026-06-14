@@ -17,8 +17,8 @@ SMTP_HOST     = os.environ.get("SMTP_HOST", "smtp.gmail.com")
 SMTP_PORT     = int(os.environ.get("SMTP_PORT", "587"))
 SMTP_USER     = os.environ.get("SMTP_USER", "")          # 送信元アドレス
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")      # アプリパスワード等
-ADMIN_EMAIL_PRIMARY   = "yaita-tetsuro@nishikawa1566.com"
-ADMIN_EMAIL_FALLBACK  = "yt2nah0@gmail.com"
+ADMIN_EMAIL_PRIMARY   = "yt2nah0@gmail.com"
+ADMIN_EMAIL_FALLBACK  = None  # 会社メールはセキュリティ制限のため使用しない
 
 # ── パス ───────────────────────────────────────────────
 BASE_DIR      = Path(__file__).parent.parent

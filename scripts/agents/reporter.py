@@ -15,7 +15,7 @@ def _send(subject: str, body: str):
         print(f"[Reporter][WARN] SMTP未設定 — コンソール出力のみ\n{subject}\n{body}")
         return
 
-    for recipient in [ADMIN_EMAIL_PRIMARY, ADMIN_EMAIL_FALLBACK]:
+    for recipient in [r for r in [ADMIN_EMAIL_PRIMARY, ADMIN_EMAIL_FALLBACK] if r]:
         try:
             msg = MIMEText(body, "plain", "utf-8")
             msg["Subject"] = subject

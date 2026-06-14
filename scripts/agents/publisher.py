@@ -83,7 +83,8 @@ def send_email(articles: list[dict], is_irregular: bool = False) -> bool:
     body_parts.append("\n本メールはSt.NEA配信システムにより自動送信されています。\n")
     body = "".join(body_parts)
 
-    for recipient in [ADMIN_EMAIL_PRIMARY, ADMIN_EMAIL_FALLBACK]:
+    recipients = [r for r in [ADMIN_EMAIL_PRIMARY, ADMIN_EMAIL_FALLBACK] if r]
+    for recipient in recipients:
         try:
             msg = MIMEMultipart("alternative")
             msg["Subject"] = subject
@@ -101,9 +102,6 @@ def send_email(articles: list[dict], is_irregular: bool = False) -> bool:
 
         except Exception as e:
             print(f"[Publisher][WARN] メール送信失敗 ({recipient}): {e}")
-            if recipient == ADMIN_EMAIL_PRIMARY:
-                print("[Publisher] フォールバックアドレスへ再試行します")
-                continue
 
     return False
 
