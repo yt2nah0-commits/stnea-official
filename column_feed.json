@@ -1,21 +1,49 @@
 {
-  "generated_at": "2026-06-14T00:00:00.000Z",
+  "generated_at": "2026-06-14T14:52:12.183307+00:00",
   "generated_date": "2026-06-14",
-  "count": 2,
+  "count": 6,
   "items": [
     {
-      "title": "Anthropic、Claude 4シリーズを正式公開",
-      "source": "Anthropic",
-      "url": "https://www.anthropic.com/news",
-      "column_text": "【タイトル】\nClaudeが新世代へ——Claude 4シリーズが正式公開\n\n📌 Anthropicが次世代モデル「Claude 4」シリーズを発表。コーディング・推論・長文処理の能力が大幅に向上しています。\n\nClaude 4シリーズの登場により、AIアシスタントの実用性がさらに高まりました。特にコード生成の精度と、複数ファイルにまたがるタスク処理が改善されており、開発者・クリエイターにとって即戦力となる変更です。今日試せることとしては、Claude.aiで新モデルを切り替え、これまで苦手だった長い文書の要約を試してみることをおすすめします。\n\n🔗 ソース：https://www.anthropic.com/news",
-      "published_at": "2026-06-14T00:00:00.000Z"
+      "title": "Check out real-life AI prototypes from the Futures Lab.",
+      "source": "Google",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/university-waterloo-labs/",
+      "column_text": "【タイトル】\nウォータールー大学のAIプロトタイプが教育と仕事を変える\n\n📌 カナダの大学生が開発した手話学習AIなど、教育・仕事の現場を刷新するAIプロトタイプが注目を集めています。\n\nウォータールー大学のFutures Labでは、学生たちが実社会の課題に向き合いながら、AIを活用したプロトタイプを次々と開発しています。なかでも手話をインタラクティブに学べるAIチューターは、言語教育のアクセシビリティを広げる可能性があります。こうした取り組みは、AIが「使うもの」から「自分でつくるもの」へと変わりつつあることを示しているとみられます。AIクリエイターにとって注目したいのは、学習・業務支援という身近な課題からプロトタイプを発想している点です。まずは自分の日常業務や学習フローの中で「ここに小さなAIがあれば楽になる」という場面を1つ書き出してみるところから始めると、アイデアの具体化につながるかもしれません。\n\n🔗 ソース：https://blog.google/innovation-and-ai/technology/ai/university-waterloo-labs/",
+      "published_at": "2026-06-14T14:52:12.183307+00:00"
     },
     {
-      "title": "OpenAI、GPT-5の研究プレビューを公開",
-      "source": "OpenAI",
-      "url": "https://openai.com/news",
-      "column_text": "【タイトル】\nGPT-5研究プレビュー公開——何が変わったか整理します\n\n📌 OpenAIがGPT-5の研究プレビューを一部ユーザー向けに公開。マルチモーダル処理と推論精度の向上が主な特徴です。\n\nGPT-5では画像・テキスト・音声を統合して処理する能力が強化されており、これまで別ツールを使っていたワークフローを一本化できる可能性があります。ただし「研究プレビュー」段階のため、業務利用には動作検証が必要です。まず無料枠で試して、自分の用途に合うか確認することを推奨します。\n\n🔗 ソース：https://openai.com/news",
-      "published_at": "2026-06-14T00:00:00.000Z"
+      "title": "Catch up on the Dialogues stage at Google I/O 2026.",
+      "source": "Google",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/io-2026-dialogues-recap/",
+      "column_text": "【タイトル】\nGoogle I/O 2026「Dialogues」ステージ、注目の対話を振り返る\n\n📌 Alphabet CEOのサンダー・ピチャイ氏が登壇し、AIの現在地と今後の方向性について語ったセッションのまとめが公開されました。\n\nGoogle I/O 2026の「Dialogues」ステージでは、Alphabet CEOサンダー・ピチャイ氏が対話形式でAIの進化と展望について言及しました。GoogleがAIをプロダクト全体にどう組み込もうとしているか、その戦略的な姿勢が伝わる内容とみられます。AIクリエイターやツール活用者にとっては、Googleの今後のサービス展開を読み解くうえで参考になるセッションです。今日からできるアクションとして、Googleの公式ブログに掲載されているセッションのリキャップ記事を読み、自分が使っているGoogleツール（GeminiやWorkspaceなど）の新機能アップデートと照らし合わせてみると、活用の幅が広がる可能性があります。\n\n🔗 ソース：https://blog.google/innovation-and-ai/technology/ai/io-2026-dialogues-recap/",
+      "published_at": "2026-06-14T14:52:12.183307+00:00"
+    },
+    {
+      "title": "How AI Mode is changing the way people search in the U.S.",
+      "source": "Google",
+      "url": "https://blog.google/products-and-platforms/products/search/ai-mode-us-insights/",
+      "column_text": "【タイトル】\nGoogleのAIモードが米国の検索体験を変えつつある\n\n📌 GoogleがAIモードの米国における利用動向を公開し、検索の使われ方に新たな変化が生まれているとみられます。\n\nGoogleはAIモードを通じて、ユーザーが従来のキーワード検索から、より会話的・探索的な検索スタイルへと移行しつつある様子を報告しています。ショッピングや趣味、学習など多様なシーンで活用が広がっており、クリエイターやAIツールを日常的に使う方にとっても、情報収集やインスピレーション探しの手法が変わる可能性があります。たとえば「バナナを使ったレシピのビジュアルアイデアを探したい」といった複合的な問いかけも、AIモードならより直感的に答えを引き出せるとみられます。今日から試せるヒントとして、Googleの検索画面でAIモードのタブを選び、普段よりも長めの自然な言葉でクエリを入力してみると、新しい検索体験を実感できるでしょう。\n\n🔗 ソース：https://blog.google/products-and-platforms/products/search/ai-mode-us-insights/",
+      "published_at": "2026-06-14T14:52:12.183307+00:00"
+    },
+    {
+      "title": "Chinese cybercrime operation that used AI to scam ‘hundreds of thousands of victims’ sued by Google",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/06/12/chinese-cybercrime-operation-that-used-ai-to-scam-hundreds-of-thousands-of-victims-sued-by-google/",
+      "column_text": "【タイトル】\nGoogleがAI詐欺集団を提訴——被害者は数十万人規模\n\n📌 中国系サイバー犯罪グループがAIを悪用し、わずか2週間で250万件のSMSを送信して大規模詐欺を行ったとして、Googleが法的措置に踏み切りました。\n\n「Outsider Enterprise」と名乗るグループは、AIを活用してメッセージを大量生成・送信し、数十万人規模の被害者を生み出したとみられます。AIが悪意ある目的に使われたとき、その拡散速度や規模は従来の手口を大きく上回る可能性があります。AIツールを日々活用するクリエイターにとっても、これは対岸の火事ではありません。自分のブランド名やサービス名が詐欺に悪用されていないか定期的に検索して確認することが、今できる最低限の自衛策のひとつです。AIの力が善用される一方で、同じ技術が悪用されるリスクも同時に高まっている現状を、ツール活用者として意識しておくことが大切です。\n\n🔗 ソース：https://techcrunch.com/2026/06/12/chinese-cybercrime-operation-that-used-ai-to-scam-hundreds-of-thousands-of-victims-sued-by-google/",
+      "published_at": "2026-06-14T14:52:12.183307+00:00"
+    },
+    {
+      "title": "Mistral is rumored to be raising €3B at €20B valuation",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/06/12/mistral-is-rumored-to-be-raising-e3b-at-e20-valuation/",
+      "column_text": "【タイトル】\nMistralが約3兆円規模の資金調達か、評価額は倍増へ\n\n📌 欧州発AIスタートアップのMistralが、評価額約2兆3000億円での大型資金調達を進めているとの報道が出ています。\n\nフランス発のAI企業Mistralが、約3,000億円（3B€）の資金調達を検討しているとみられます。評価額は前回シリーズCの約1.3兆円からほぼ倍増となる見込みで、欧州AIエコシステムへの期待の高まりを象徴する動きといえるでしょう。Mistralはオープンソースモデルを軸に展開しており、OpenAIやAnthropicに対抗する存在として注目を集めています。AIクリエイターやツール活用者にとって気になるのは、資金力の強化が今後のモデル性能や提供サービスの拡充につながる可能性があるという点です。実際にMistralのモデルは「Le Chat」などのサービスを通じて無料で試せますので、まだ触れていない方は一度アクセスして使い心地を確かめてみるとよいでしょう。欧州発AIの動向は、今後の多様なAIツール選びの参考にもなるとみられます。\n\n🔗 ソース：https://techcrunch.com/2026/06/12/mistral-is-rumored-to-be-raising-e3b-at-e20-valuation/",
+      "published_at": "2026-06-14T14:52:12.183307+00:00"
+    },
+    {
+      "title": "Meta’s months-old AI unit is a soul-crushing gulag, say the engineers stuck inside it",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/06/12/metas-months-old-ai-unit-is-a-soul-crushing-gulag-say-the-engineers-stuck-inside-it/",
+      "column_text": "【タイトル】\nMetaのAI部門、内部崩壊の実態とクリエイターへの影響\n\n📌 Metaが新設したAI専門部門で、エンジニアたちが「創造性を奪う職場環境」と訴えており、同社のAIツール開発の行方に影響が出る可能性があります。\n\nMetaは近年、AIクリエイター向けのツール開発に積極的に投資してきましたが、その中核を担うAI部門の内情に深刻な問題が浮上しています。複数のエンジニアが「自律性がなく、意思決定が極端に制限されている」と証言しており、優秀な人材の流出が続いているとみられます。こうした組織的な停滞は、InstagramやThreadsに組み込まれているAI機能や、クリエイター向けの生成AIツールの開発速度に直接影響する可能性があります。AIツールを日常的に活用しているクリエイターにとっては、Meta系プラットフォームのAI機能更新が鈍化するリスクを頭の片隅に置いておくことが重要です。今日からできることとして、MetaのAIツールだけに依存せず、他社のクリエイティブAIツールも並行して試しておくことをお勧めします。\n\n🔗 ソース：https://techcrunch.com/2026/06/12/metas-months-old-ai-unit-is-a-soul-crushing-gulag-say-the-engineers-stuck-inside-it/",
+      "published_at": "2026-06-14T14:52:12.183307+00:00"
     }
   ]
 }
