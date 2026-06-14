@@ -23,6 +23,7 @@
         <a href="#workflow" class="nav__link">Workflow</a>
         <a href="#agents"   class="nav__link">Agents</a>
         <a href="#products" class="nav__link">Products</a>
+        <a href="#column"   class="nav__link">Column</a>
         <a href="#contact"  class="nav__link">Contact</a>
       </nav>
       <div class="nav__live">
@@ -499,6 +500,18 @@
       </div>
     </section>
 
+    <!-- ░░ AI COLUMN ░░ -->
+    <section id="column" class="column section">
+      <div class="container">
+        <div class="section-eyebrow reveal">AI Column</div>
+        <h2 class="section-title reveal">AIニュース コラム</h2>
+        <p class="section-sub reveal">AIエージェントが収集・検証・執筆した最新AIトピックをお届けします。</p>
+        <div class="column__grid reveal" id="columnGrid">
+          <div class="column__loading">コラムを読み込み中...</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ░░ CONCEPT BANNER ░░ -->
     <section class="concept-banner">
       <div class="container">
@@ -663,6 +676,53 @@
       });
     }, { threshold: 0.5 });
     counters.forEach(el => counterObs.observe(el));
+  </script>
+
+  <script>
+    // ── AIコラム読み込み ──────────────────────────────────
+    async function loadColumns() {
+      const grid = document.getElementById('columnGrid');
+      try {
+        const res = await fetch('column_feed.json?t=' + Date.now());
+        if (!res.ok) throw new Error('not found');
+        const data = await res.json();
+
+        if (!data.items || data.items.length === 0) {
+          grid.innerHTML = '<p class="column__empty">現在掲載中のコラムはありません。</p>';
+          return;
+        }
+
+        grid.innerHTML = data.items.map(item => {
+          const lines = (item.column_text || '').split('\n').filter(l => l.trim());
+          const titleLine  = lines.find(l => l.startsWith('【タイトル】'));
+          const leadLine   = lines.find(l => l.startsWith('📌'));
+          const sourceLine = lines.find(l => l.startsWith('🔗'));
+          const bodyLines  = lines.filter(l =>
+            !l.startsWith('【タイトル】') && !l.startsWith('📌') && !l.startsWith('🔗') && l.trim()
+          );
+
+          const title  = titleLine ? titleLine.replace('【タイトル】', '').trim() : item.title;
+          const lead   = leadLine  ? leadLine.replace('📌', '').trim() : '';
+          const body   = bodyLines.slice(0, 4).join(' ');
+
+          return `
+            <article class="column__card">
+              <div class="column__card-source">${item.source}</div>
+              <h3 class="column__card-title">${title}</h3>
+              ${lead ? `<p class="column__card-lead">${lead}</p>` : ''}
+              <p class="column__card-body">${body}</p>
+              <a class="column__card-link" href="${item.url}" target="_blank" rel="noopener">
+                元記事を読む →
+              </a>
+            </article>`;
+        }).join('');
+
+      } catch (e) {
+        grid.innerHTML = '<p class="column__empty">コラムの読み込みに失敗しました。</p>';
+      }
+    }
+
+    loadColumns();
   </script>
 
 </body>
