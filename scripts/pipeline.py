@@ -11,7 +11,30 @@ from datetime import datetime
 
 from scripts.db.schema import init_db
 from scripts.config import NG_RATE_THRESHOLD, WEEKLY_DAY, WEEKLY_HOUR, WEEKLY_MINUTE
-from scripts.agents import collector, validator, legal, writer, archive, publisher, reporter
+from scripts.agents import collector, validator, legal, writer, editor, archive, publisher, reporter
+
+
+def _write_and_edit(article: dict) -> str | None:
+    """WriterAgentで執筆 → EditorAgent（編集長）レビューを通した最終稿を返す。
+
+    Returns: 配信可能なコラムテキスト（差し戻し・生成失敗時は None）
+    """
+    column_text = writer.write(article)
+    if not column_text:
+        print(f"[Writer] 生成失敗（スキップ）: {article['title'][:40]}")
+        return None
+
+    e_passed, e_reason, revised = editor.review(article, column_text)
+    if not e_passed:
+        print(f"[Editor] 差し戻し: {article['title'][:40]} — {e_reason}")
+        archive.archive_ng(article, e_reason, "editor", fixable=True)
+        reporter.report_ng(article, e_reason, "editor", fixable=True)
+        return None
+
+    if revised:
+        print(f"[Editor] 推敲修正あり — {article['title'][:40]}")
+        return revised
+    return column_text
 
 
 def run_pipeline(is_irregular: bool = False) -> dict:
@@ -34,7 +57,7 @@ def run_pipeline(is_irregular: bool = False) -> dict:
         reporter.report_no_articles()
         return {"status": "no_articles", "collected": 0}
 
-    # ── Step 2〜4: Validator → Legal → Writer ──────────────
+    # ── Step 2〜4: Validator → Legal → Writer → Editor ─────
     passed_articles = []
     ng_count = 0
 
@@ -58,14 +81,13 @@ def run_pipeline(is_irregular: bool = False) -> dict:
             ng_count += 1
             continue
 
-        # WriterAgent
-        column_text = writer.write(a)
+        # WriterAgent → EditorAgent（編集長レビュー）
+        column_text = _write_and_edit(a)
         if column_text:
             a["column_text"] = column_text
             passed_articles.append(a)
-            print(f"[Writer] コラム生成 ✓ — {a['title'][:40]}")
+            print(f"[Writer/Editor] コラム確定 ✓ — {a['title'][:40]}")
         else:
-            print(f"[Writer] 生成失敗（スキップ）: {a['title'][:40]}")
             ng_count += 1
 
     # ── Step 5: NG率チェック ────────────────────────────────
@@ -87,7 +109,7 @@ def run_pipeline(is_irregular: bool = False) -> dict:
         print(f"[Archive] 再キュー記事追加：{len(retry_articles)}件")
         for ra in retry_articles:
             if not any(a["url"] == ra["url"] for a in passed_articles):
-                col = writer.write(ra)
+                col = _write_and_edit(ra)
                 if col:
                     ra["column_text"] = col
                     passed_articles.append(ra)
