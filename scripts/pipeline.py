@@ -14,7 +14,7 @@ from scripts.config import NG_RATE_THRESHOLD, WEEKLY_DAY, WEEKLY_HOUR, WEEKLY_MI
 from scripts.agents import collector, validator, legal, writer, editor, archive, publisher, reporter
 
 
-def _write_and_edit(article: dict) -> str | None:
+def _write_and_edit(article: dict):
     """WriterAgentで執筆 → EditorAgent（編集長）レビューを通した最終稿を返す。
 
     Returns: 配信可能なコラムテキスト（差し戻し・生成失敗時は None）

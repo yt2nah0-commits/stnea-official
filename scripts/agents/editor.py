@@ -62,7 +62,7 @@ URL：{url}
 JSONのみ返答してください。"""
 
 
-def review(article: dict, column_text: str) -> tuple[bool, str, str | None]:
+def review(article: dict, column_text: str):
     """
     Returns:
         (passed, reason, revised_text)
