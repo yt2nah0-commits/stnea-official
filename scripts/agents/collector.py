@@ -39,7 +39,7 @@ def _save(article: dict):
         """, article)
 
 
-def collect() -> tuple[list[dict], bool]:
+def collect():
     """
     Returns:
         articles: 新規取得記事リスト

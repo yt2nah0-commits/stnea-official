@@ -15,7 +15,7 @@ from scripts.config import (
 from scripts.db.schema import get_conn
 
 
-def update_site(articles: list[dict]) -> bool:
+def update_site(articles):
     """column_feed.json を更新してGitHubにpush"""
     now = datetime.now(timezone.utc).isoformat()
     payload = {
@@ -62,7 +62,7 @@ def _git_push() -> bool:
         return False
 
 
-def send_email(articles: list[dict], is_irregular: bool = False) -> bool:
+def send_email(articles, is_irregular=False):
     """管理者メールへコラム配信"""
     if not SMTP_USER or not SMTP_PASSWORD:
         print("[Publisher][WARN] SMTP未設定のためメール送信スキップ")
@@ -106,7 +106,7 @@ def send_email(articles: list[dict], is_irregular: bool = False) -> bool:
     return False
 
 
-def log_publish(article_ids: list[int], channel: str, note: str = ""):
+def log_publish(article_ids, channel, note=""):
     with get_conn() as conn:
         conn.execute("""
             INSERT INTO publish_log (published_at, article_ids, channel, note)

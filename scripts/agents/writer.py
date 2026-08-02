@@ -42,7 +42,7 @@ URL：{url}
 本文のみ出力してください。説明不要。"""
 
 
-def write(article: dict) -> str | None:
+def write(article: dict):
     """
     Returns:
         コラムテキスト（失敗時 None）

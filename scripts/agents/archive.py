@@ -22,7 +22,7 @@ def archive_ng(article: dict, ng_reason: str, ng_agent: str, fixable: bool):
         """, (article["url"], article["title"], ng_reason, ng_agent, now, int(fixable)))
 
 
-def get_retry_queue() -> list[dict]:
+def get_retry_queue():
     """鮮度期限内の修正可能NG記事を返す（次回配信候補）"""
     cutoff = (datetime.now(timezone.utc) - timedelta(days=FRESHNESS_DAYS)).isoformat()
     with get_conn() as conn:
