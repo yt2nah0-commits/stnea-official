@@ -969,3 +969,68 @@ body {
 @media (max-width: 480px) {
   .col-modal__box { padding: 28px 20px; }
 }
+
+/* ── Column card: header row & date footer ─────────────── */
+.column__card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column__card-update {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.column__card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.column__card-date {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.column__card-more {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-left: auto;
+}
+
+/* ── Modal: meta dates & update badge ─────────────────── */
+.col-modal__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.col-modal__date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.col-modal__update-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}

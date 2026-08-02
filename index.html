@@ -694,27 +694,61 @@
     // ── AIコラム読み込み + モーダル ───────────────────────
     let columnItems = [];
 
+    function fmtDate(str) {
+      if (!str) return '';
+      const d = new Date(str);
+      if (isNaN(d)) return str;
+      return d.getFullYear() + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0');
+    }
+
     function parseColumn(item) {
       const lines = (item.column_text || '').split('\n').filter(l => l.trim());
-      const titleLine = lines.find(l => l.startsWith('【タイトル】'));
+      const titleIdx = lines.findIndex(l => l.startsWith('【タイトル】'));
+      let japTitle = '';
+      if (titleIdx >= 0) {
+        // タイトルが同一行にある場合と、次の行にある場合の両方に対応
+        japTitle = lines[titleIdx].replace('【タイトル】', '').trim();
+        if (!japTitle && titleIdx + 1 < lines.length && !lines[titleIdx + 1].startsWith('📌')) {
+          japTitle = lines[titleIdx + 1].trim();
+        }
+      }
       const leadLine  = lines.find(l => l.startsWith('📌'));
       const bodyLines = lines.filter(l =>
-        !l.startsWith('【タイトル】') && !l.startsWith('📌') && !l.startsWith('🔗') && l.trim()
+        !l.startsWith('【タイトル】') && !l.startsWith('📌') && !l.startsWith('🔗') && l.trim() && l !== japTitle
       );
       return {
-        title:  titleLine ? titleLine.replace('【タイトル】', '').trim() : item.title,
-        lead:   leadLine  ? leadLine.replace('📌', '').trim() : '',
-        body:   bodyLines.join('\n'),
-        source: item.source,
-        url:    item.url,
+        title:       japTitle || item.title,
+        lead:        leadLine  ? leadLine.replace('📌', '').trim() : '',
+        body:        bodyLines.join('\n'),
+        source:      item.source,
+        url:         item.url,
+        publishedAt: item.published_at || '',
+        columnAt:    item.column_at || '',
+        isUpdate:    !!item.is_update,
+        updatesRef:  item.updates_ref || '',
       };
     }
 
     function openModal(idx) {
       const d = columnItems[idx];
       if (!d) return;
-      document.getElementById('colModalSource').textContent = d.source;
-      document.getElementById('colModalTitle').textContent  = d.title;
+      const srcEl = document.getElementById('colModalSource');
+      srcEl.innerHTML = d.source +
+        (d.isUpdate ? ' <span class="col-modal__update-badge">UPDATE</span>' : '');
+      document.getElementById('colModalTitle').textContent = d.title;
+
+      let metaHtml = '';
+      if (d.publishedAt) metaHtml += `<span class="col-modal__date">元記事：${fmtDate(d.publishedAt)}</span>`;
+      if (d.columnAt)    metaHtml += `<span class="col-modal__date">掲載日：${fmtDate(d.columnAt)}</span>`;
+      let metaEl = document.getElementById('colModalMeta');
+      if (!metaEl) {
+        metaEl = document.createElement('div');
+        metaEl.id = 'colModalMeta';
+        metaEl.className = 'col-modal__meta';
+        document.getElementById('colModalTitle').after(metaEl);
+      }
+      metaEl.innerHTML = metaHtml;
+
       document.getElementById('colModalBody').innerHTML =
         (d.lead ? `<p class="col-modal__lead">📌 ${d.lead}</p>` : '') +
         d.body.split('\n').map(l => `<p>${l}</p>`).join('');
@@ -751,10 +785,17 @@
           <article class="column__card" role="button" tabindex="0"
             onclick="openModal(${idx})"
             onkeydown="if(event.key==='Enter')openModal(${idx})">
-            <div class="column__card-source">${d.source}</div>
+            <div class="column__card-header">
+              <span class="column__card-source">${d.source}</span>
+              ${d.isUpdate ? '<span class="column__card-update">UPDATE</span>' : ''}
+            </div>
             <h3 class="column__card-title">${d.title}</h3>
             ${d.lead ? `<p class="column__card-lead">${d.lead}</p>` : ''}
-            <span class="column__card-more">全文を読む →</span>
+            <div class="column__card-footer">
+              ${d.publishedAt ? `<span class="column__card-date">元記事：${fmtDate(d.publishedAt)}</span>` : ''}
+              ${d.columnAt ? `<span class="column__card-date">掲載：${fmtDate(d.columnAt)}</span>` : ''}
+              <span class="column__card-more">全文を読む →</span>
+            </div>
           </article>`).join('');
 
       } catch (e) {

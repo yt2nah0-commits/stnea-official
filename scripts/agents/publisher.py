@@ -1,11 +1,13 @@
 """PublisherAgent — column_feed.json 更新 + GitHub push + メール配信"""
 
 import json
+import re
 import smtplib
 import subprocess
 from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.utils import parsedate_to_datetime
 
 from scripts.config import (
     COLUMN_JSON, GIT_REPO_PATH, AUTO_GIT_PUSH,
@@ -14,27 +16,98 @@ from scripts.config import (
 )
 from scripts.db.schema import get_conn
 
+ARCHIVE_MAX = 60  # 保持する最大件数
+_STOPWORDS = {"the", "a", "an", "in", "of", "for", "and", "or", "to", "is", "it", "its", "on", "at", "by"}
+
+
+def _parse_date(date_str: str) -> str:
+    """RFC 2822 / ISO 8601 / 生文字列を YYYY-MM-DD に正規化"""
+    if not date_str:
+        return ""
+    try:
+        return parsedate_to_datetime(date_str).strftime("%Y-%m-%d")
+    except Exception:
+        pass
+    try:
+        return datetime.fromisoformat(date_str[:19]).strftime("%Y-%m-%d")
+    except Exception:
+        pass
+    return date_str[:10] if len(date_str) >= 10 else date_str
+
+
+def _keywords(title: str) -> set:
+    return {w.lower() for w in re.findall(r'\w+', title)
+            if w.lower() not in _STOPWORDS and len(w) > 2}
+
+
+def _load_existing() -> list:
+    try:
+        data = json.loads(COLUMN_JSON.read_text(encoding="utf-8"))
+        return data.get("items", [])
+    except Exception:
+        return []
+
+
+def _detect_updates(new_items: list, existing_items: list) -> list:
+    """既存記事と同トピックの新記事に is_update フラグを付与"""
+    by_source = {}
+    for item in existing_items:
+        src = item.get("source", "")
+        by_source.setdefault(src, []).append(item)
+
+    for item in new_items:
+        src = item.get("source", "")
+        kws = _keywords(item.get("title", ""))
+        item.setdefault("is_update", False)
+        item.setdefault("updates_ref", "")
+
+        for old in by_source.get(src, []):
+            if old.get("url") == item.get("url"):
+                continue
+            overlap = len(kws & _keywords(old.get("title", "")))
+            if overlap >= 2:
+                item["is_update"] = True
+                item["updates_ref"] = old.get("url", "")
+                break
+
+    return new_items
+
 
 def update_site(articles):
     """column_feed.json を更新してGitHubにpush"""
-    now = datetime.now(timezone.utc).isoformat()
+    column_at = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    existing = _load_existing()
+    existing_urls = {item.get("url") for item in existing}
+
+    new_items = [
+        {
+            "title":       a["title"],
+            "source":      a["source"],
+            "url":         a["url"],
+            "column_text": a.get("column_text", ""),
+            "published_at": _parse_date(a.get("published_at", "")),
+            "column_at":   column_at,
+            "is_update":   False,
+            "updates_ref": "",
+        }
+        for a in articles
+        if a["url"] not in existing_urls
+    ]
+
+    new_items = _detect_updates(new_items, existing)
+
+    merged = new_items + existing
+    merged = merged[:ARCHIVE_MAX]
+
     payload = {
-        "generated_at": now,
-        "generated_date": datetime.now().strftime("%Y-%m-%d"),
-        "count": len(articles),
-        "items": [
-            {
-                "title":       a["title"],
-                "source":      a["source"],
-                "url":         a["url"],
-                "column_text": a.get("column_text", ""),
-                "published_at": now,
-            }
-            for a in articles
-        ],
+        "generated_at":   datetime.now(timezone.utc).isoformat(),
+        "generated_date": column_at,
+        "count":          len(merged),
+        "items":          merged,
     }
     COLUMN_JSON.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[Publisher] column_feed.json 更新 ({len(articles)}件)")
+    print(f"[Publisher] column_feed.json 更新 ({len(merged)}件、新規{len(new_items)}件)")
 
     if AUTO_GIT_PUSH:
         return _git_push()
