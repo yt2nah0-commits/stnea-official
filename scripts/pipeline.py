@@ -11,7 +11,7 @@ from datetime import datetime
 
 from scripts.db.schema import init_db
 from scripts.config import NG_RATE_THRESHOLD, WEEKLY_DAY, WEEKLY_HOUR, WEEKLY_MINUTE
-from scripts.agents import collector, validator, legal, writer, editor, archive, publisher, reporter
+from scripts.agents import collector, validator, legal, writer, editor, archive, publisher, reporter, qa
 
 
 def _write_and_edit(article: dict):
@@ -126,6 +126,9 @@ def run_pipeline(is_irregular: bool = False) -> dict:
 
     archive.mark_queued_as_archived()
 
+    # ── Step 8: QA チェック（配信直後に品質審査） ───────────
+    qa.run()
+
     print(f"[Pipeline] 完了 — {passed}件配信")
     print('='*60 + "\n")
 
@@ -165,6 +168,14 @@ def start_scheduler():
         CronTrigger(day_of_week=WEEKLY_DAY, hour=WEEKLY_HOUR, minute=WEEKLY_MINUTE),
         id="weekly_publish",
         name="週次定期配信（月曜08:30）",
+    )
+
+    # 毎日 09:00 QAチェック（配信日以外も品質を監視）
+    scheduler.add_job(
+        qa.run,
+        CronTrigger(hour=9, minute=0),
+        id="daily_qa",
+        name="日次品質チェック（毎日09:00）",
     )
 
     print("[Scheduler] 起動")

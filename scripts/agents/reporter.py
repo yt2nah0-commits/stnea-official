@@ -33,6 +33,11 @@ def _send(subject: str, body: str):
             print(f"[Reporter][WARN] 送信失敗 ({recipient}): {e}")
 
 
+def _send_admin(subject: str, body: str):
+    """qa.py など他エージェントからも使える汎用送信口"""
+    _send(subject, body)
+
+
 def report_ng(article: dict, ng_reason: str, ng_agent: str, fixable: bool):
     subject = f"[St.NEA] NG記事発生 — {article['title'][:30]}"
     fixable_str = "修正可能（鮮度期限内なら再キュー）" if fixable else "修正不可（アーカイブのみ）"
